@@ -1,0 +1,8 @@
+<template>
+    <template if:false={isDataLoaded}>
+        <lightning-spinner variant="Brand"></lightning-spinner>
+    </template>
+    <template if:true={isDataLoaded}>
+        <c-reusable-table content={content}></c-reusable-table>
+    </template>
+</template>

@@ -1,0 +1,67 @@
+<template>
+    <lightning-card title="Top 10 Contacts in the org">
+        <table>
+            <tr>
+                <th>LastName</th>
+                <th>Phone</th>
+                <th>Mail</th>
+                <th></th>
+                <th>
+                    <lightning-button icon-name="utility:add" onclick={createContact}> </lightning-button>
+                </th>
+            </tr>
+            <template for:each={contacts} for:item="contact" for:index="idx">
+            <tr key={contact.Id}>
+                <template  if:false={contact.edit}>
+                    <td>{contact.LastName}</td>
+                    <td>{contact.Phone}</td>
+                    <td>{contact.Email}</td>
+                    <td><lightning-button label="Edit"   data-index={idx} data-record-id={contact.Id} onclick={ctrlEdit}></lightning-button></td> 
+                    <td><lightning-button label="Delete" data-index={idx} data-record-id={contact.Id} onclick={ctrlDelete}></lightning-button></td>
+                </template>   
+
+                <template  if:true={contact.edit}>
+                    <c-modal-data>
+                        <h1  slot  = "header">Editting Mode</h1>
+                        <div slot  = "body">
+                            <lightning-input label="Name" name="LastName" onchange={changed} value={contact.LastName} ></lightning-input>
+                            <lightning-input label="Phone" name="Phone"    onchange={changed} value={contact.Phone}    ></lightning-input>
+                            <lightning-input label="Email" name="Email"    onchange={changed} value={contact.Email}    ></lightning-input>
+                        </div>
+                        <h2  slot  = "footer">
+                            <lightning-button label="Save" data-index={idx} data-record-id={EdittingId} onclick={ctrlSave}></lightning-button> 
+                            <lightning-button label="Cancel" onclick={ctrlCancel}></lightning-button> 
+                        </h2>
+                    </c-modal-data>
+                </template>
+            </tr>
+            </template>
+        </table> 
+    </lightning-card>
+    <template  if:true={DeletePressed}>
+        <c-modal-data>
+            <h1  slot  = "header">Delete Mode</h1>
+            <div slot  = "body">
+            Are you Sure to Delete?   
+            </div>
+            <h2  slot  = "footer">
+                <lightning-button label="Delete" onclick={DeleteConfirmination}></lightning-button> 
+                <lightning-button label="Cancel" onclick={ctrlCancel}></lightning-button> 
+            </h2>
+        </c-modal-data>
+    </template>
+    <template  if:true={createPressed}>
+        <c-modal-data>
+            <h1  slot  = "header">Creation Mode</h1>
+            <div slot  = "body">
+                <lightning-input label="Name" name="LastName"  onchange={changed}  ></lightning-input>
+                <lightning-input label="Phone" name="Phone"    onchange={changed} ></lightning-input>
+                <lightning-input label="Email" name="Email"    onchange={changed} ></lightning-input>
+            </div>
+            <h2  slot  = "footer">
+                <lightning-button label="Create" onclick={createRecord}></lightning-button> 
+                <lightning-button label="Cancel" onclick={ctrlCancel}></lightning-button> 
+            </h2>
+        </c-modal-data>
+    </template>
+</template>

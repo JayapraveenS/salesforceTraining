@@ -1,0 +1,10 @@
+<template>
+    <!-- get object and field metadata component-->
+    <template if:false={isObjFieldsReceived}>
+        <c-show-object-and-fields oncontent={handleOnContent}></c-show-object-and-fields>
+    </template>
+
+    <template if:true={isObjFieldsReceived}>
+        <c-reusable-table content={content}></c-reusable-table>
+    </template>
+</template>

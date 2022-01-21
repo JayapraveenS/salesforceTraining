@@ -1,0 +1,37 @@
+<template>
+    <!-- If header is came this template renders  -->
+    <template if:false={singleRecord} for:each={fieldApis} for:item="singleApiName">
+        <c-table-head-component key={singleApiName} single-record={singleRecord} field-api-name={singleApiName}
+            class="slds-border_right slds-theme_shade stickToTop">
+        </c-table-head-component>
+    </template>
+
+    <!-- If value is came this template renders  -->
+    <template if:true={singleRecord}>
+        <template if:false={editting} for:each={fieldApis} for:item="singleApiName">
+            <c-table-column-component key={singleApiName} onvalchanged={handleValChanged} object-name={objectName}
+                single-record={singleRecord} field-api-name={singleApiName} class="slds-border_right">
+            </c-table-column-component>
+        </template>
+
+        <!-- sldsValidatorIgnoreNextLine -->
+        <!-- <lightning-button-icon if:false={editting} alternative-text="Edit" onclick={handleEdit}
+            icon-name="utility:edit">
+        </lightning-button-icon> -->
+
+        <!-- <template if:true={editting}>
+            <template for:each={fieldApis} for:item="singleApiName">
+
+                <c-inline-editting key={singleApiName} onvalchanged={changedData} field-api-name={singleApiName}
+                    single-record={singleRecord} class="slds-border_right slds-m-around_none">
+                </c-inline-editting>
+
+            </template> -->
+
+        <!-- sldsValidatorIgnoreNextLine -->
+        <!-- <lightning-button-icon icon-name="utility:save" alternative-text="Update" title="Update"
+                class="slds-m-around_none slds-p-around_none" onclick={updateRec}>
+            </lightning-button-icon> -->
+        <!-- </template> -->
+    </template>
+</template>

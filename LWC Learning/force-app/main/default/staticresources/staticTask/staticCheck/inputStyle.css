@@ -1,0 +1,10 @@
+.inputcls:hover
+{
+    background-color: goldenrod;
+}
+
+.target img
+{
+    height:"3vh";
+    width:"3vw"; 
+}
