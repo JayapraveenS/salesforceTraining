@@ -4,6 +4,7 @@
         <c-show-object-and-fields oncontent={handleOnContent}></c-show-object-and-fields>
     </template>
 
+    <!-- Render table after data received-->
     <template if:true={isObjFieldsReceived}>
         <c-reusable-table content={content}></c-reusable-table>
     </template>
