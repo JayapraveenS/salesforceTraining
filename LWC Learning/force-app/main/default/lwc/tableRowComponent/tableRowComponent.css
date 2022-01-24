@@ -1,8 +1,0 @@
-:host {
-    display: table-row;
-}
-
-.stickToTop {
-    position: sticky;
-    top: 0px;
-}
