@@ -3,21 +3,30 @@ import {
     wire
 } from 'lwc';
 import {
-    MessageContext,
-    subscribe
+    subscribe,
+    unsubscribe,
+    APPLICATION_SCOPE,
+    MessageContext
 } from 'lightning/messageService';
-import MessageChannel from '@salesforce/msgChannel/msgChannel__c';
+import recordSelected from "@salesforce/messageChannel/MessageChannelPractice__c";
 
 export default class MessageReceiver extends LightningElement {
     @wire(MessageContext)
-    MessageContext;
+    messageContext;
     subscription = null;
     receivedMessage;
     connectedCallback() {
-        if (this.subscription == null) {
-            this.subscription = subscribe(this.MessageContext, MessageChannel, (message) => {
-                this.receivedMessage = message.msg;
-            })
+        this.subscribeToMessageChannel();
+    }
+    subscribeToMessageChannel() {
+        if (!this.subscription) {
+            this.subscription = subscribe(
+                this.messageContext,
+                recordSelected,
+                (message) => this.handleMessage(message), {
+                    scope: APPLICATION_SCOPE
+                }
+            );
         }
     }
 }
