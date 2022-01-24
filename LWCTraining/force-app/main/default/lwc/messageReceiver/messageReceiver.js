@@ -13,8 +13,9 @@ import recordSelected from "@salesforce/messageChannel/MessageChannelPractice__c
 export default class MessageReceiver extends LightningElement {
     @wire(MessageContext)
     messageContext;
+
     subscription = null;
-    receivedMessage;
+    receivedMessage = 0;
     connectedCallback() {
         this.subscribeToMessageChannel();
     }
@@ -23,7 +24,9 @@ export default class MessageReceiver extends LightningElement {
             this.subscription = subscribe(
                 this.messageContext,
                 recordSelected,
-                (message) => this.handleMessage(message), {
+                (message) => {
+                    this.receivedMessage = message.msg
+                }, {
                     scope: APPLICATION_SCOPE
                 }
             );
